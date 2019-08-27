@@ -19,7 +19,7 @@ dumpster fire of a language at the moment.
 
 ## License
 
-    Copyright (c) 2018 William H. Beebe, Jr.
+    Copyright (c) 2019 William H. Beebe, Jr.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
