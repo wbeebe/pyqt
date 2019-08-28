@@ -18,6 +18,8 @@ than code.
 Python code creates the buttons and connects actions to the buttons. Press any of
 the buttons and it will print out on the console which button was pressed.
 
+![Grid Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/grid-layout-example.png)
+
 + Table Example - Creates a spreadsheet-like view, with letters across the top
 denoting the column name, and numbers down the side for the rows. Python iterators
 and an array for the column letters allows the cells to be created and the cell
@@ -29,8 +31,6 @@ and modified. Trying to determine the complete bounds of a selected range doesn'
 work well for me at the moment and I don't know why.
 
 ![Table Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/table-example.png)
-
-![Grid Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/grid-layout-example.png)
 
 ## Initial Creation 25 August 2019
 
