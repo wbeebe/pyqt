@@ -5,8 +5,21 @@ A collection of PyQt projects using Python3 and Qt5
 ## examples
 
 These are the various examples I wrote to understand how to create
-certain types of UI compositions. Nothing earth-shattering, but
+certain types of UI compositions using PyQt5 (Python 3 with Qt 5)
+on a Raspberry Pi running Raspbian Buster. Nothing earth-shattering, but
 they do sorta build on one another.
+
+I also must confess I started, like just about everyone else these days,
+following examples on the web. The only issue is that those examples are
+not clean, reasonably idiomatic Python. They looked, without exception,
+to have been copied from elsewhere, with code removed from larger applications,
+with a lot of useless junk left over from the initial pruning. These examples
+are a further refinement of existing functionality as well as new functionality
+added in to help illusrate an initial point.
+
+I've tried to provide comments inside the code body of each example, except
+where it made no sense because the code itself was self-documenting. For example,
+the minimal window example.
 
 **Minimal Window Example** - The smallest PyQt5 application I could write that
 would put up a window with chrome. There are more blank lines and comments
