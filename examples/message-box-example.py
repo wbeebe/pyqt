@@ -16,28 +16,44 @@ import sys
 
 from PyQt5.QtWidgets import (
     QApplication,
+    QMainWindow,
     QWidget,
     QPushButton,
     QMessageBox,
     QHBoxLayout)
 
-class App(QWidget):
+class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-
         self.setWindowTitle('PyQt5 Message Box')
         self.setGeometry(100, 100, 320, 200)
-        self.setLayout(QHBoxLayout())
 
-        button = QPushButton('Open Message Box', self)
+        #
+        # Create a button that when clicked will pop up our dialog.
+        # Connect our function on_click so that it is called when
+        # the button is clicked.
+        #
+        button = QPushButton('Click to Open Message Box', self)
         button.setToolTip('This opens an example message box')
-        self.layout().addWidget(button)
         button.clicked.connect(self.on_click)
+        #
+        # Add the button to the center of our simple window.
+        #
+        widget = QWidget()
+        layout = QHBoxLayout(widget)
+        layout.addWidget(button)
+        self.setCentralWidget(widget)
 
         self.show()
         sys.exit(app.exec_())
 
+    #
+    # This is our hook to pop up our simple dialog.
+    # To show the effects of clicking either button, write
+    # approprite text to the main window's status line at the bottom
+    # of the main window.
+    #
     def on_click(self):
         buttonReply = QMessageBox.question(
             self,
@@ -45,9 +61,9 @@ class App(QWidget):
             'Do you like PyQt5?',
             QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
         if buttonReply == QMessageBox.Yes:
-            print('Yes clicked.')
+            self.statusBar().showMessage('You clicked Yes. That''s good.')
         else:
-            print('No clicked.')
+            self.statusBar().showMessage('You clicked No. Why are you here?')
 
 if __name__ == '__main__':
     App()
