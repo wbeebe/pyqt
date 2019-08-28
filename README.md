@@ -2,6 +2,16 @@
 
 A collection of PyQt projects using Python3 and Qt5
 
+## examples
+
+These are the various examples I wrote to understand how to create
+certain types of UI compositions. Nothing earth-shattering, but
+they do sorta build on one another.
+
+![Minimal Window Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/minimal-window-example.png)
+
+![Grid Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/grid-layout-example.png)
+
 ## Initial Creation 25 August 2019
 
 This is a collection of very simple PyQt5 examples (so far) that use
