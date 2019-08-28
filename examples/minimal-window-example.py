@@ -16,14 +16,15 @@ import sys
 
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget)
+    QMainWindow)
 
-class App(QWidget):
+class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
         self.setWindowTitle('PyQt5 Minimal Window')
         self.setGeometry(100, 100, 640, 480)
+        self.statusBar().showMessage('Message in statusbar.')
         self.show()
         sys.exit(app.exec_())
 
