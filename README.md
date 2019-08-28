@@ -8,7 +8,15 @@ These are the various examples I wrote to understand how to create
 certain types of UI compositions. Nothing earth-shattering, but
 they do sorta build on one another.
 
++ Minimal Window Example - The smallest PyQt5 application I could write that
+would put up a window with chrome. There are more blank lines and comments
+than code.
+
 ![Minimal Window Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/minimal-window-example.png)
+
++ Grid Layout Example - Creates a 3-by-3 array of buttons labeled 1-9. Some clever
+Python code creates the buttons and connects actions to the buttons. Press any of
+the buttons and it will print out on the console which button was pressed.
 
 ![Grid Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/grid-layout-example.png)
 
