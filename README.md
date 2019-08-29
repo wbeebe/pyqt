@@ -4,7 +4,7 @@ A collection of PyQt projects using Python3 and Qt5
 
 ## examples
 
-These are the various examples I wrote to understand how to create
+These are some of the various examples I wrote to understand how to create
 certain types of UI compositions using PyQt5 (Python 3 with Qt 5)
 on a Raspberry Pi running Raspbian Buster. Nothing earth-shattering, but
 they do sorta build on one another.
@@ -44,6 +44,23 @@ and modified. Trying to determine the complete bounds of a selected range doesn'
 work well for me at the moment and I don't know why.
 
 ![Table Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/table-example.png)
+
+**Menu Example** - More extensive construction of a menu framework. Entries across the top,
+with one entry under 'File' and two under 'Help'. A toolbar is also added into the mix.
+The toolbar is movable; it can be grabbed by the mouse and moved to all four sides of the
+window, as well as fully detached. I'm not sure if a toolbar is used much anymore, but the
+code is in there (three or so lines) to create one.
+
+![Menu Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/menu-example-1.png)
+
+![Menu Example - About Qt](https://github.com/wbeebe/pyqt/blob/master/screenshots/menu-example-2.png)
+
+**Tab Example** Example of creating an application with tabs. I added several buttons into
+the mix to prove the tabs were unique. I also added and enabled the delete buttons for all
+the tabs. You can't create them but you can certainly delete them in any order. Logic was
+added so that the very last tab, whatever it is, can't be deleted.
+
+![Tab Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/tab-example.png)
 
 ## Initial Creation 25 August 2019
 
