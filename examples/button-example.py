@@ -14,29 +14,47 @@
 #
 import sys
 
+from datetime import datetime
+
 from PyQt5.QtWidgets import (
     QApplication,
+    QMainWindow,
+    QHBoxLayout,
     QWidget,
     QPushButton)
 
-class App(QWidget):
+class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
 
         self.setWindowTitle('PyQt5 simple button example')
-        self.setGeometry(100, 100, 640, 480)
+        self.setGeometry(100, 100, 360, 140)
 
-        button = QPushButton('PyQt5 button', self)
-        button.setToolTip('This is an example button')
-        button.move(100,70)
+        button = QPushButton('PyQt5 Push Button', self)
+        button.setToolTip('Click button to change window status message.')
+        #
+        # Not too sure about setting the fixed size of the button.
+        # But I did that to keep the button from stretching across the width of
+        # the window. Must be a way to have the button fit the size of it's text.
+        #
         button.clicked.connect(self.on_click)
+        button.setFixedSize(150,30)
 
+        widget = QWidget()
+        layout = QHBoxLayout(widget)
+        layout.addWidget(button)
+        self.setCentralWidget(widget)
+
+        self.statusBar().showMessage('Operational')
         self.show()
         sys.exit(app.exec_())
 
     def on_click(self):
-        print('PyQt5 button click')
+        # timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+        self.statusBar().showMessage(
+            'PyQt5 button clicked at {0}'.format(
+                datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
 if __name__ == '__main__':
     App()
