@@ -47,9 +47,7 @@ class App(QMainWindow):
         # I broke up the instatiation to debug this, but nothing
         # works. I'm using Raspbian Buster's 24x24 exit PNG file.
         #
-        exitButton = QAction(self)
-        exitButton.setText('E&xit')
-        exitButton.setIcon(QIcon('exit.png'))
+        exitButton = QAction(QIcon('exit.png'), 'E&xit', self)
         exitButton.setStatusTip('Exit application')
         exitButton.triggered.connect(self.close)
         fileMenu.addAction(exitButton)
