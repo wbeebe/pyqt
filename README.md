@@ -33,6 +33,15 @@ the buttons and it will print out on the console which button was pressed.
 
 ![Grid Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/grid-layout-example.png)
 
+**Horizontal Layout Example** - Another simple application, this one built around a bare
+dialog box. The only feature of note in this example is the use of Python-style
+functional programing, denoted by the _lambda_ keyword in the clicked.connect() button
+function calls. The lambda is use to make the call with a reference of the button
+that made the call. This appears to be the only way to make a general callback with
+an argument.
+
+![Horizontal Layout Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/horizontal-layout-example.png)
+
 **Table Example** - Creates a spreadsheet-like view, with letters across the top
 denoting the column name, and numbers down the side for the rows. Python iterators
 and an array for the column letters allows the cells to be created and the cell
