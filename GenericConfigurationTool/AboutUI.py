@@ -62,10 +62,10 @@ class About(QWidget):
                 psutil.swap_memory().total / (1024 ** 3),
                 psutil.swap_memory().used / (1024 ** 3),
                 psutil.swap_memory().free / (1024 ** 3)))
-        self.__addLine__(
-            "CPU Temperatur:",
-            "{:.1f} C".format(psutil.sensors_temperatures()['cpu-thermal'][0].current))
 
+        self.__addLine__(
+            "CPU Temperature:",
+            "{:.1f}\xb0 C".format(psutil.sensors_temperatures()['cpu-thermal'][0].current))
 
     def __addLine__(self, label, value):
         lbl = QLabel(label)
