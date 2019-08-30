@@ -2,6 +2,24 @@
 
 A collection of PyQt projects using Python3 and Qt5
 
+## Generic Configuration Tool
+
+A reimplementation of the Java application by that same name. This uses the
+example app tabs-example.py, and strips it down to a bare bones implementation.
+This application is also the start of using Python modules, as the tabs are instantiations
+of a specific module in a file. The 'About' tab is the only Python file with anything
+substantive, while the Workstation tab is just a placeholder for the time being.
+This is the same essential design I used for the Java version, but the implementation
+details are drastically different. It's another challenge for me to learn how to achieve
+the same operational level in Python I had with Java and JavaFX.
+
+What is significant is the use of sys and psutil functions to dig out statuses about
+various aspects of the running Raspberry Pi. I suppose I could make this self refreshing
+via some sort of threading, but that's something for the future. I have more fundamental
+capabilities to build into this application.
+
+![Generic Configuration Tool](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-About.png)
+
 ## examples
 
 These are some of the various examples I wrote to understand how to create
@@ -14,8 +32,8 @@ following examples on the web. My biggest issue with current examples is they ar
 not clean, reasonably idiomatic Python. They looked, without exception,
 to have been copied from elsewhere, code that was removed from larger applications,
 with a lot of useless junk left over from the initial pruning. These examples
-are written to do exactly what they will do with code specifically written for that
-purpose using Python 3 and Qt 5 to illusrate a specific point.
+are written to do exactly what they say they will do with code specifically written
+for that purpose using Python 3 and Qt 5 to illusrate a specific point.
 
 I've tried to provide comments inside the code body of each example, except
 where it made no sense because the code itself was self-documenting. For example,
