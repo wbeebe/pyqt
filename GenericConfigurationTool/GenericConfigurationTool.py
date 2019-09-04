@@ -13,6 +13,7 @@
 #  limitations under the License.
 #
 import sys
+import datetime
 
 from PyQt5.QtWidgets import (
     QMainWindow,
@@ -33,41 +34,51 @@ class App(QMainWindow):
         app = QApplication(sys.argv)
         super().__init__()
         self.setWindowTitle('Generic Configuration Tool')
-        self.setGeometry(100, 100, 640, 300)
-        self.setCentralWidget(MyTabWidget(self))
+        self.setGeometry(100, 100, 640, 480)
+        self.setCentralWidget(TabContainer(self))
         self.show()
         sys.exit(app.exec_())
 
-class MyTabWidget(QTabWidget):
+class TabContainer(QTabWidget):
     def __init__(self, parent):
         super(QTabWidget, self).__init__(parent)
         self.parent = parent
 
-        # Enable the ability to move tabs and reorganize them, as well
-        # as close them. Setting tabs as closable displays a close button
-        # on each tab.
+        # Enable the ability to move individual tabs and reorganize them.
+        # Disable the ability to close them.
+        # Setting tabs as closable displays a close button on each tab.
         #
-        self.setTabsClosable(False)
         self.setMovable(True)
+        self.setTabsClosable(False)
+        parent.statusBar().showMessage(
+            "Application started {0}".format(
+                datetime.datetime.now()))
 
-        # Create tabs in tab container
+        # Create tabs to be placed in tab container
         #
         self.tab1 = About(self)
         self.tab2 = Workstation(self)
 
-        # Add tabs
+        # Add individual tabs into container.
         #
         self.addTab(self.tab1,self.tab1.tabName())
         self.addTab(self.tab2,self.tab2.tabName())
 
+        # Connect actions through tab container.
+        # You can select a tab, so that is active.
+        # Tab closure is disabled, but the hook and code are
+        # left here for possible future capabilities.
+        #
         self.currentChanged.connect(self.tabSelected)
-        self.tabCloseRequested.connect(self.closeRequest)
+        self.tabCloseRequested.connect(self.tabClose)
 
     def tabSelected(self):
-        self.parent.statusBar().showMessage("Selected tab {0}".format(self.currentIndex()+1))
+        self.parent.statusBar().showMessage(
+            "Selected tab {}".format(self.tabText(self.currentIndex())))
 
-    def closeRequest(self):
-        parent.statusBar().showMessage("Tab close request on tab {0}".format(self.currentIndex()+1))
+    def tabClose(self):
+        parent.statusBar().showMessage(
+            "Tab close request on tab {0}".format(self.currentIndex()+1))
         if self.count() > 1:
             self.removeTab(self.currentIndex())
 

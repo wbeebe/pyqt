@@ -58,7 +58,7 @@ class About(QWidget):
 
         self.__addLine__(
             "Swap Space as Total/Used/Free:",
-            "{:.1f} GiB/{:.1f} GiB/{:.1f} GiB".format(
+            "{:.1f} GiB/{:.2f} GiB/{:.1f} GiB".format(
                 psutil.swap_memory().total / (1024 ** 3),
                 psutil.swap_memory().used / (1024 ** 3),
                 psutil.swap_memory().free / (1024 ** 3)))

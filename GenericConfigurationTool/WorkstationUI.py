@@ -14,10 +14,10 @@
 import sys
 import psutil
 
-from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt, PYQT_VERSION_STR
+from PyQt5.QtCore import Qt
 
 from PyQt5.QtWidgets import (
+    QLineEdit,
     QGridLayout,
     QHBoxLayout,
     QLabel,
@@ -33,14 +33,33 @@ class Workstation(QWidget):
         self.setLayout(hlayout)
         self.row = 0
 
-    def __addLine__(self, label, value):
-        lbl = QLabel(label)
-        lbl.setAlignment(Qt.AlignRight)
-        self.layout.addWidget(lbl, self.row, 0)
+        self.__addLabel__("Federate Name")
+        self.federateName = QLineEdit('REMOTE_WORKSTATION')
+        self.__addInput__(self.federateName)
 
-        lbl = QLabel(value)
-        lbl.setAlignment(Qt.AlignTop)
-        self.layout.addWidget(lbl, self.row, 1)
+        self.__addLabel__("Message Directory Cache")
+        self.messageDirectoryCache = QLineEdit(self)
+        self.__addInput__(self.messageDirectoryCache)
+
+        self.__addLabel__("Map Data Cache")
+        self.mapDataCache = QLineEdit(self)
+        self.__addInput__(self.mapDataCache)
+
+        self.__addLabel__("Raster Map Cache")
+        self.rasterMapCache = QLineEdit(self)
+        self.__addInput__(self.rasterMapCache)
+
+        self.__addLabel__("Remote Control Location")
+        self.remoteControlLocation = QLineEdit(self)
+        self.__addInput__(self.remoteControlLocation)
+
+    def __addLabel__(self, label):
+        lbl = QLabel(label)
+        self.layout.addWidget(lbl, self.row, 0, 1, -1)
+        self.row += 1
+
+    def __addInput__(self, input):
+        self.layout.addWidget(input, self.row, 0, 1, 4)
         self.row += 1
 
     def tabName(self):
