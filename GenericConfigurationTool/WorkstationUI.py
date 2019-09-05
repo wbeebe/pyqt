@@ -17,6 +17,8 @@ import psutil
 from PyQt5.QtCore import Qt
 
 from PyQt5.QtWidgets import (
+    QFileDialog,
+    QPushButton,
     QLineEdit,
     QGridLayout,
     QHBoxLayout,
@@ -40,6 +42,7 @@ class Workstation(QWidget):
         self.__addLabel__("Message Directory Cache")
         self.messageDirectoryCache = QLineEdit(self)
         self.__addInput__(self.messageDirectoryCache)
+        self.__addSelect__(self.messageDirectoryCache)
 
         self.__addLabel__("Map Data Cache")
         self.mapDataCache = QLineEdit(self)
@@ -62,5 +65,25 @@ class Workstation(QWidget):
         self.layout.addWidget(input, self.row, 0, 1, 4)
         self.row += 1
 
+    def __addSelect__(self, input):
+        self.layout.addWidget(BrowseButton(self, input), self.row-1, 4, 1, 1)
+
     def tabName(self):
         return 'Workstation'
+
+class BrowseButton(QPushButton, QLineEdit):
+    def __init__(self, parent, input):
+        super(QPushButton, self).__init__(parent)
+        self.input = input
+        self.setText('...')
+        self.clicked.connect(self.on_click)
+
+    def on_click(self):
+        print('BrowseButton clicked {}'.format(self.input.text()))
+        #self.input.setText('{} - Bar'.format(self.input.text()))
+        folder = QFileDialog.getExistingDirectory(self,
+            "Select Folder", "",QFileDialog.ShowDirsOnly)
+        if folder:
+            self.input.setText(folder)
+            self.input.setStyleSheet("background-color:#ffc0c0")
+        self.input.setFocus()

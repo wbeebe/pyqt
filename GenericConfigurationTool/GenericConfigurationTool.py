@@ -39,6 +39,10 @@ class App(QMainWindow):
         self.show()
         sys.exit(app.exec_())
 
+    def closeEvent(self, event):
+        print("Close event")
+        event.accept()
+
 class TabContainer(QTabWidget):
     def __init__(self, parent):
         super(QTabWidget, self).__init__(parent)
