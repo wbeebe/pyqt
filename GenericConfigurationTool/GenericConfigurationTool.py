@@ -16,8 +16,11 @@ import sys
 import datetime
 
 from PyQt5.QtWidgets import (
+    QHBoxLayout,
+    QVBoxLayout,
     QMainWindow,
     QApplication,
+    QMessageBox,
     QPushButton,
     QWidget,
     QAction,
@@ -35,13 +38,56 @@ class App(QMainWindow):
         super().__init__()
         self.setWindowTitle('Generic Configuration Tool')
         self.setGeometry(100, 100, 640, 480)
-        self.setCentralWidget(TabContainer(self))
+        self.isEdited = False
+        self.saveAndClose = SaveAndCloseActions(self)
+
+        centralWidget = QWidget()
+        vbox = QVBoxLayout()
+        centralWidget.setLayout(vbox)
+        vbox.addWidget(TabContainer(self))
+        vbox.addStretch(1)
+        vbox.addWidget(self.saveAndClose)
+        self.setCentralWidget(centralWidget)
         self.show()
         sys.exit(app.exec_())
 
     def closeEvent(self, event):
-        print("Close event")
-        event.accept()
+        if self.isEdited:
+            # pop up dialog to alert user of unsaved edits.
+            # offer then a chance to save before exiting.
+            #
+            messageBox = QMessageBox(self)
+            messageBox.setIcon(QMessageBox.Question)
+            messageBox.setWindowTitle("Close Check")
+            messageBox.setText("You Have Unsaved Edits")
+            messageBox.setInformativeText("You have made edits that have not been saved.\nReally close and not save?")
+            messageBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            #
+            # change the default Yes and No buttons to really say
+            # what then mean: Yes = Save and No = Quit.
+            # the button actions then match exactly what the dialog
+            # is saying and there should be no disonnance.
+            #
+            buttonSave = messageBox.button(QMessageBox.Yes)
+            buttonSave.setText("Save")
+            buttonQuit = messageBox.button(QMessageBox.No)
+            buttonQuit.setText("Close")
+            messageBox.setDefaultButton(QMessageBox.Yes)
+            buttonReply = messageBox.exec_()
+
+            if buttonReply == QMessageBox.Yes:
+                print("QMessageBox.Save")
+                event.accept()
+            else:
+                print("QMessageBox.Close")
+        else:
+            print("Close event")
+            event.accept()
+
+    def setEdited(self):
+        self.isEdited = True
+        self.saveAndClose.enableSave()
+        
 
 class TabContainer(QTabWidget):
     def __init__(self, parent):
@@ -54,6 +100,7 @@ class TabContainer(QTabWidget):
         #
         self.setMovable(True)
         self.setTabsClosable(False)
+        #self.setStyleSheet("QTabWidget::pane { border: 0; }")
         parent.statusBar().showMessage(
             "Application started {0}".format(
                 datetime.datetime.now()))
@@ -61,7 +108,7 @@ class TabContainer(QTabWidget):
         # Create tabs to be placed in tab container
         #
         self.tab1 = About(self)
-        self.tab2 = Workstation(self)
+        self.tab2 = Workstation(self, self.parent)
 
         # Add individual tabs into container.
         #
@@ -85,6 +132,29 @@ class TabContainer(QTabWidget):
             "Tab close request on tab {0}".format(self.currentIndex()+1))
         if self.count() > 1:
             self.removeTab(self.currentIndex())
+
+class SaveAndCloseActions(QWidget):
+    def __init__(self, parent):
+        super(QWidget, self).__init__(parent)
+        self.parent = parent
+        self.saveButton = QPushButton("Save")
+        self.saveButton.setEnabled(False)
+        closeButton = QPushButton("Close")
+        closeButton.clicked.connect(self.closeOnClick)
+        hbox = QHBoxLayout()
+        hbox.addStretch(1)
+        hbox.addWidget(self.saveButton)
+        hbox.addWidget(closeButton)
+        self.setLayout(hbox)
+
+    def closeOnClick(self):
+        self.parent.close()
+
+    def enableSave(self):
+        self.saveButton.setEnabled(True)
+
+    def disableSave(self):
+        self.saveButton.setEnabled(False)
 
 if __name__ == '__main__':
     App()

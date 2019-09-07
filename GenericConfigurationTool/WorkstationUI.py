@@ -17,6 +17,7 @@ import psutil
 from PyQt5.QtCore import Qt
 
 from PyQt5.QtWidgets import (
+    QMainWindow,
     QFileDialog,
     QPushButton,
     QLineEdit,
@@ -26,8 +27,9 @@ from PyQt5.QtWidgets import (
     QWidget)
 
 class Workstation(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, top):
         super(QWidget, self).__init__(parent)
+        self.top = top
         hlayout = QHBoxLayout()
         self.layout = QGridLayout()
         hlayout.addLayout(self.layout)
@@ -41,20 +43,19 @@ class Workstation(QWidget):
 
         self.__addLabel__("Message Directory Cache")
         self.messageDirectoryCache = QLineEdit(self)
-        self.__addInput__(self.messageDirectoryCache)
-        self.__addSelect__(self.messageDirectoryCache)
+        self.__addInputAndSelect__(self.messageDirectoryCache, self.top)
 
         self.__addLabel__("Map Data Cache")
         self.mapDataCache = QLineEdit(self)
-        self.__addInput__(self.mapDataCache)
+        self.__addInputAndSelect__(self.mapDataCache, self.top)
 
         self.__addLabel__("Raster Map Cache")
         self.rasterMapCache = QLineEdit(self)
-        self.__addInput__(self.rasterMapCache)
+        self.__addInputAndSelect__(self.rasterMapCache, self.top)
 
         self.__addLabel__("Remote Control Location")
         self.remoteControlLocation = QLineEdit(self)
-        self.__addInput__(self.remoteControlLocation)
+        self.__addInputAndSelect__(self.remoteControlLocation, self.top)
 
     def __addLabel__(self, label):
         lbl = QLabel(label)
@@ -68,13 +69,26 @@ class Workstation(QWidget):
     def __addSelect__(self, input):
         self.layout.addWidget(BrowseButton(self, input), self.row-1, 4, 1, 1)
 
+    def __addInputAndSelect__(self, input, top):
+        hbox = QHBoxLayout()
+        hbox.setContentsMargins(0,0,0,0)
+        hbox.addWidget(input)
+        browseButton = BrowseButton(self, input, top)
+        browseButton.adjustSize()
+        hbox.addWidget(browseButton)
+        widget = QWidget(self)
+        widget.setLayout(hbox)
+        self.layout.addWidget(widget, self.row, 0, 1, -1)
+        self.row += 1
+
     def tabName(self):
         return 'Workstation'
 
-class BrowseButton(QPushButton, QLineEdit):
-    def __init__(self, parent, input):
+class BrowseButton(QPushButton, QLineEdit, QMainWindow):
+    def __init__(self, parent, input, top):
         super(QPushButton, self).__init__(parent)
         self.input = input
+        self.top = top
         self.setText('...')
         self.clicked.connect(self.on_click)
 
@@ -85,5 +99,6 @@ class BrowseButton(QPushButton, QLineEdit):
             "Select Folder", "",QFileDialog.ShowDirsOnly)
         if folder:
             self.input.setText(folder)
-            self.input.setStyleSheet("background-color:#ffc0c0")
+            self.input.setStyleSheet("background-color:#ffff80")
+            self.top.setEdited()
         self.input.setFocus()
