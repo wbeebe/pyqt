@@ -7,8 +7,7 @@ A collection of PyQt projects using Python3 and Qt5
 A reimplementation of the Java application by that same name. This uses the
 example app tabs-example.py, and strips it down to a bare bones implementation.
 This application is also the start of using Python modules, as the tabs are instantiations
-of a specific module in a file. The 'About' tab is the only Python file with anything
-substantive, while the Workstation tab is just a placeholder for the time being.
+of a specific module in a file. The 'About' and 'Workstation' tabs are fairly complete.
 This is the same essential design I used for the Java version, but the implementation
 details are drastically different. It's another challenge for me to learn how to achieve
 the same operational level in Python I had with Java and JavaFX.
