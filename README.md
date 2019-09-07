@@ -20,6 +20,28 @@ capabilities to build into this application.
 
 ![Generic Configuration Tool](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-About.png)
 
+This is what the Workstation tab looks like. It basically repeats the original Java application.
+
+![Generic Configuration Tool - Workstation](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-Workstation.png)
+
+Each one of the right buttons will bring up a folder selection dialog.
+
+![Workstation Folder Selection Dialog](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-Workstation-Select.png)
+
+Picking a folder and then Choose produces the following on the Workstation tab.
+Note that the Save button at the bottom is now active.
+
+![Workstation Field Edited](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-Workstation-Edited.png)
+
+The field has been edited, but the edit has not been saved. If you try to exit the application without
+saving any edits, this is what you will see.
+
+![Exit with Save Dialog](https://github.com/wbeebe/pyqt/blob/master/screenshots/GenericConfigurationTool-ExitDialog.png)
+
+At this point you could either Save your work or continue to exit without save.
+Or at least that's the plan. The skeleton for trapping edits and making sure to
+save are there, but nothing will happen (yet) if you do save.
+
 ## examples
 
 These are some of the various examples I wrote to understand how to create
