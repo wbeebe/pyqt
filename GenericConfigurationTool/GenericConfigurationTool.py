@@ -31,6 +31,7 @@ from PyQt5.QtGui import QIcon
 
 from AboutUI import About
 from WorkstationUI import Workstation
+from ServicesUI import Services
 
 class App(QMainWindow):
     def __init__(self):
@@ -87,7 +88,7 @@ class App(QMainWindow):
     def setEdited(self):
         self.isEdited = True
         self.saveAndClose.enableSave()
-        
+
 
 class TabContainer(QTabWidget):
     def __init__(self, parent):
@@ -109,11 +110,13 @@ class TabContainer(QTabWidget):
         #
         self.tab1 = About(self)
         self.tab2 = Workstation(self, self.parent)
+        self.tab3 = Services(self, self.parent)
 
         # Add individual tabs into container.
         #
-        self.addTab(self.tab1,self.tab1.tabName())
-        self.addTab(self.tab2,self.tab2.tabName())
+        self.addTab(self.tab1, self.tab1.tabName())
+        self.addTab(self.tab2, self.tab2.tabName())
+        self.addTab(self.tab3, self.tab3.tabName())
 
         # Connect actions through tab container.
         # You can select a tab, so that is active.
