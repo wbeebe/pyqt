@@ -42,7 +42,7 @@ Or at least that's the plan. The skeleton for trapping edits and making sure to
 save are there, but nothing will happen (yet) if you do save.
 
 The next tab is the Services tab. Nothing much here (and it won't make sense out of the context
-in which the original was first developed), but it has to entries, Exercise Data Server..., in which there
+in which the original was first developed), but it has two entries, Exercise Data Server..., in which there
 are two radio buttons, one to the right of the two entry fields. In the original context you could
 point to either a test system or a production system, and this was meant to allow the end user
 a quick way to choose without having to re-enter that information over and over. Enter them once,
