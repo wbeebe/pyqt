@@ -12,16 +12,20 @@
 #  limitations under the License.
 #
 import sys
+import platform
 import psutil
+from os import path
 
-from PyQt5.QtCore import QT_VERSION_STR
-from PyQt5.QtCore import Qt, PYQT_VERSION_STR
+from PyQt5.QtCore import (
+    Qt,
+    PYQT_VERSION_STR)
 
 from PyQt5.QtWidgets import (
     QGridLayout,
     QHBoxLayout,
     QLabel,
     QWidget)
+
 
 class About(QWidget):
     def __init__(self, parent):
@@ -43,7 +47,20 @@ class About(QWidget):
 
         self.__addLine__("Qt Version:", PYQT_VERSION_STR)
 
-        self.__addLine__("Platform:", sys.platform)
+        if path.isfile('/etc/system-release'):
+            with open('/etc/system-release', 'r') as reader:
+                dist = reader.readline()
+                self.__addLine__("Distribution:", dist.strip())
+        elif path.isfile('/etc/lsb-release'):
+            with open('/etc/lsb-release') as reader:
+                lsb = reader.readlines()
+                line = str(lsb[-1])
+                dist = line.strip().split("=")[-1].strip('"')
+                self.__addLine__("Distribution:", dist)
+
+        self.__addLine__("Operating System:", platform.uname().system)
+
+        self.__addLine__("Kernel Release:", platform.uname().release)
 
         self.__addLine__(
             "Total Physical Memory:",
@@ -63,11 +80,11 @@ class About(QWidget):
                 psutil.swap_memory().used / (1024 ** 3),
                 psutil.swap_memory().free / (1024 ** 3)))
 
-        try:
+        if hasattr(psutil, 'cpu-thermal') and callable(getattr(psutil, 'cpu-thermal')):
             self.__addLine__(
                 "CPU Temperature:",
                 "{:.1f}\xb0 C".format(psutil.sensors_temperatures()['cpu-thermal'][0].current))
-        except:
+        elif hasattr(psutil, 'thermal-fan-est') and callable(getattr(psutil, 'thermal-fan-est')):
             self.__addLine__(
                 "CPU Temperature:",
                 "{:.1f}\xb0 C".format(psutil.sensors_temperatures()['thermal-fan-est'][0].current))

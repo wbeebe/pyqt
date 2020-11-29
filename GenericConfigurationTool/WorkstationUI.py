@@ -26,6 +26,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QWidget)
 
+
 class Workstation(QWidget):
     def __init__(self, parent, top):
         super(QWidget, self).__init__(parent)
@@ -67,11 +68,11 @@ class Workstation(QWidget):
         self.row += 1
 
     def __addSelect__(self, input):
-        self.layout.addWidget(BrowseButton(self, input), self.row-1, 4, 1, 1)
+        self.layout.addWidget(BrowseButton(self, input), self.row - 1, 4, 1, 1)
 
     def __addInputAndSelect__(self, input, top):
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(0,0,0,0)
+        hbox.setContentsMargins(0, 0, 0, 0)
         hbox.addWidget(input)
         browseButton = BrowseButton(self, input, top)
         browseButton.adjustSize()
@@ -84,6 +85,7 @@ class Workstation(QWidget):
     def tabName(self):
         return 'Workstation'
 
+
 class BrowseButton(QPushButton, QLineEdit, QMainWindow):
     def __init__(self, parent, input, top):
         super(QPushButton, self).__init__(parent)
@@ -94,9 +96,10 @@ class BrowseButton(QPushButton, QLineEdit, QMainWindow):
 
     def on_click(self):
         print('BrowseButton clicked {}'.format(self.input.text()))
-        #self.input.setText('{} - Bar'.format(self.input.text()))
+        # self.input.setText('{} - Bar'.format(self.input.text()))
         folder = QFileDialog.getExistingDirectory(self,
-            "Select Folder", "",QFileDialog.ShowDirsOnly)
+                    "Select Folder", "",
+                    QFileDialog.ShowDirsOnly | QFileDialog.DontUseNativeDialog)
         if folder:
             self.input.setText(folder)
             self.input.setStyleSheet("background-color:#ffff80")

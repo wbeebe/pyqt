@@ -33,6 +33,7 @@ from AboutUI import About
 from WorkstationUI import Workstation
 from ServicesUI import Services
 
+
 class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
@@ -101,16 +102,16 @@ class TabContainer(QTabWidget):
         #
         self.setMovable(True)
         self.setTabsClosable(False)
-        #self.setStyleSheet("QTabWidget::pane { border: 0; }")
+        # self.setStyleSheet("QTabWidget::pane { border: 0; }")
         parent.statusBar().showMessage(
             "Application started {0}".format(
                 datetime.datetime.now()))
 
         # Create tabs to be placed in tab container
         #
-        self.tab1 = About(self)
-        self.tab2 = Workstation(self, self.parent)
-        self.tab3 = Services(self, self.parent)
+        self.tab1 = Workstation(self, self.parent)
+        self.tab2 = Services(self, self.parent)
+        self.tab3 = About(self)
 
         # Add individual tabs into container.
         #
@@ -132,9 +133,10 @@ class TabContainer(QTabWidget):
 
     def tabClose(self):
         parent.statusBar().showMessage(
-            "Tab close request on tab {0}".format(self.currentIndex()+1))
+            "Tab close request on tab {0}".format(self.currentIndex() + 1))
         if self.count() > 1:
             self.removeTab(self.currentIndex())
+
 
 class SaveAndCloseActions(QWidget):
     def __init__(self, parent):
@@ -159,6 +161,6 @@ class SaveAndCloseActions(QWidget):
     def disableSave(self):
         self.saveButton.setEnabled(False)
 
+
 if __name__ == '__main__':
     App()
-
