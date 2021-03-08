@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@ import platform
 import psutil
 from os import path
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     Qt,
     PYQT_VERSION_STR)
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QGridLayout,
     QHBoxLayout,
     QLabel,
@@ -33,7 +33,7 @@ class About(QWidget):
         hlayout = QHBoxLayout()
         self.layout = QGridLayout()
         hlayout.addLayout(self.layout)
-        hlayout.setAlignment(Qt.AlignTop)
+        hlayout.setAlignment(hlayout, Qt.Alignment.AlignTop)
         self.setLayout(hlayout)
         self.row = 0
 
@@ -91,11 +91,11 @@ class About(QWidget):
 
     def __addLine__(self, label, value):
         lbl = QLabel(label)
-        lbl.setAlignment(Qt.AlignRight)
+        lbl.setAlignment(Qt.Alignment.AlignRight)
         self.layout.addWidget(lbl, self.row, 0)
 
         lbl = QLabel(value)
-        lbl.setAlignment(Qt.AlignTop)
+        lbl.setAlignment(Qt.Alignment.AlignTop)
         self.layout.addWidget(lbl, self.row, 1)
         self.row += 1
 

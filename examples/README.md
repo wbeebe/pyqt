@@ -1,27 +1,21 @@
-# PyQt, or Python3 with Qt bindings
+# PyQt, or Python3 with Qt6 bindings
 
-A collection of PyQt projects using Python3 and Qt5
+A collection of PyQt projects using Python3 and Qt6
 
 ## examples
 
 These are some of the various examples I wrote to understand how to create
-certain types of UI compositions using PyQt5 (Python 3 with Qt 5)
-on a Raspberry Pi running Raspbian Buster. Nothing earth-shattering, but
+certain types of UI compositions using PyQt6 (Python 3 with Qt 6)
+on a Raspberry Pi 4 running Raspbian 64-bit. Nothing earth-shattering, but
 they do sorta build on one another.
 
-I started, like just about everyone else these days,
-following examples on the web. My biggest issue with current examples is they are
-not clean, reasonably idiomatic Python. They looked, without exception,
-to have been copied from elsewhere, code that was removed from larger applications,
-with a lot of useless junk left over from the initial pruning. These examples
-are written to do exactly what they say they will do with code specifically written
-for that purpose using Python 3 and Qt 5 to illusrate a specific point.
+These examples started with Python 3 and Qt5, or PyQt5.
 
 I've tried to provide comments inside the code body of each example, except
 where it made no sense because the code itself was self-documenting. For example,
 the minimal window example.
 
-**Minimal Window Example** - The smallest PyQt5 application I could write that
+**Minimal Window Example** - The smallest PyQt6 application I could write that
 would put up a window with chrome. There are more blank lines and comments
 than code.
 
@@ -71,24 +65,9 @@ added so that the very last tab, whatever it is, can't be deleted.
 
 ![Tab Example](https://github.com/wbeebe/pyqt/blob/master/screenshots/tab-example.png)
 
-## Initial Creation 25 August 2019
-
-This is a collection of very simple PyQt5 examples (so far) that use
-PyQt5 on a Raspberry Pi 4B and Raspbian Buster. I've made every attempt
-to make the examples as straightforward as possible. There are little
-to no comments in the code, but the titles of each application should
-speak for itself.
-
-I will be adding more substantive applications as they are written.
-
-I have chosen this route because I want GUI front ends for a number
-of my tools, and I don't want to have to write them in C++, Java, or
-Ruby with Qt bindings. But especially Java. Java 11 is a raging
-dumpster fire of a language at the moment.
-
 ## License
 
-    Copyright (c) 2019 William H. Beebe, Jr.
+    Copyright (c) 2021 William H. Beebe, Jr.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

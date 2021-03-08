@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
 import sys
 import psutil
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QMainWindow,
     QFileDialog,
     QPushButton,
@@ -34,7 +34,7 @@ class Workstation(QWidget):
         hlayout = QHBoxLayout()
         self.layout = QGridLayout()
         hlayout.addLayout(self.layout)
-        hlayout.setAlignment(Qt.AlignTop)
+        hlayout.setAlignment(hlayout, Qt.Alignment.AlignTop)
         self.setLayout(hlayout)
         self.row = 0
 
@@ -99,7 +99,7 @@ class BrowseButton(QPushButton, QLineEdit, QMainWindow):
         # self.input.setText('{} - Bar'.format(self.input.text()))
         folder = QFileDialog.getExistingDirectory(self,
                     "Select Folder", "",
-                    QFileDialog.ShowDirsOnly | QFileDialog.DontUseNativeDialog)
+                    QFileDialog.Options.ShowDirsOnly | QFileDialog.Options.DontUseNativeDialog)
         if folder:
             self.input.setText(folder)
             self.input.setStyleSheet("background-color:#ffff80")

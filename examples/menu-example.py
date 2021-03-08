@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,21 +14,20 @@
 #
 import sys
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QMainWindow,
     QMessageBox,
     QApplication,
     QWidget,
-    QPushButton,
-    QAction)
+    QPushButton)
 
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QAction
 
 class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-        self.setWindowTitle('PyQt5 Menu Example')
+        self.setWindowTitle('PyQt6 Menu Example')
         self.setGeometry(100, 100, 640, 480)
         self.statusBar().showMessage('Message in statusbar.')
 
@@ -63,7 +62,7 @@ class App(QMainWindow):
         self.toolbar.addAction(exitAction)
 
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     def MakeHelpMenu(self, mainMenu):
         helpMenu = mainMenu.addMenu('&Help')
@@ -79,7 +78,7 @@ class App(QMainWindow):
         helpMenu.addAction(aboutQtAction)
 
     def About(self):
-        QMessageBox.information(self, 'About', 'Menu Example 0.0')
+        QMessageBox.information(self, 'About', 'Menu Example 0.4')
 
     def AboutQt(self):
         QMessageBox.aboutQt(self, 'About PyQt')

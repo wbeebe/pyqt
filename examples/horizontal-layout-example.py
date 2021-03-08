@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 #
 import sys
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QPushButton,
     QHBoxLayout,
@@ -26,7 +26,7 @@ class App(QDialog):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-        self.setWindowTitle('PyQt5 Horizontal Layout')
+        self.setWindowTitle('PyQt6 Horizontal Layout')
         self.setGeometry(100, 100, 400, 100)
         self.CreateHorizontalLayout()
 
@@ -34,7 +34,7 @@ class App(QDialog):
         windowLayout.addWidget(self.horizontalGroupBox)
         self.setLayout(windowLayout)
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     def CreateHorizontalLayout(self):
         self.horizontalGroupBox = QGroupBox("What is your favorite color?")
@@ -55,7 +55,7 @@ class App(QDialog):
         self.horizontalGroupBox.setLayout(layout)
 
     def on_click(self, pushButton):
-        print('PyQt5 {0} button clicked.'.format(pushButton.text()))
+        print('PyQt6 {0} button clicked.'.format(pushButton.text()))
 
 if __name__ == '__main__':
     App()

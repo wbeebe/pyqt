@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 #
 import sys
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QPushButton,
@@ -28,7 +28,7 @@ class App(QDialog):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-        self.setWindowTitle('PyQt5 Grid Layout')
+        self.setWindowTitle('PyQt6 Grid Layout')
         self.setGeometry(100, 100, 320, 100)
         self.CreateGridLayout()
 
@@ -37,7 +37,7 @@ class App(QDialog):
         self.setLayout(self.windowLayout)
 
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     def CreateGridLayout(self):
         self.horizontalGroupBox = QGroupBox("Grid")

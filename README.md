@@ -1,6 +1,6 @@
 # PyQt, or Python3 with Qt bindings
 
-A collection of PyQt projects using Python3 and Qt5
+A collection of PyQt projects using Python3 and Qt6
 
 ## Generic Configuration Tool
 
@@ -14,13 +14,13 @@ the same operational level in Python I had with Java and JavaFX.
 ## examples
 
 These are some of the various examples I wrote to understand how to create
-certain types of UI compositions using PyQt5 (Python 3 with Qt 5)
-on a Raspberry Pi running Raspbian Buster. Nothing earth-shattering, but
+certain types of UI compositions using PyQt6 (Python 3 with Qt 6)
+on a Raspberry Pi 4 running Raspbian 64-bit. Nothing earth-shattering, but
 they do sorta build on one another.
 
 ## License
 
-    Copyright (c) 2019 William H. Beebe, Jr.
+    Copyright (c) 2021 William H. Beebe, Jr.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

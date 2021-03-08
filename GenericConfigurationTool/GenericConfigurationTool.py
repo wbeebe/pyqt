@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 import sys
 import datetime
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout,
     QMainWindow,
@@ -23,11 +23,10 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QPushButton,
     QWidget,
-    QAction,
     QTabWidget,
     QVBoxLayout)
 
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QAction
 
 from AboutUI import About
 from WorkstationUI import Workstation
@@ -51,7 +50,7 @@ class App(QMainWindow):
         vbox.addWidget(self.saveAndClose)
         self.setCentralWidget(centralWidget)
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     def closeEvent(self, event):
         if self.isEdited:
@@ -59,25 +58,27 @@ class App(QMainWindow):
             # offer then a chance to save before exiting.
             #
             messageBox = QMessageBox(self)
-            messageBox.setIcon(QMessageBox.Question)
+            messageBox.setIcon(QMessageBox.Icon.Question)
             messageBox.setWindowTitle("Close Check")
             messageBox.setText("You Have Unsaved Edits")
-            messageBox.setInformativeText("You have made edits that have not been saved.\nReally close and not save?")
-            messageBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            messageBox.setInformativeText(
+                "You have made edits that have not been saved.\nReally close and not save?")
+            messageBox.setStandardButtons(
+                QMessageBox.StandardButtons.Yes | QMessageBox.StandardButtons.No)
             #
             # change the default Yes and No buttons to really say
             # what then mean: Yes = Save and No = Quit.
             # the button actions then match exactly what the dialog
             # is saying and there should be no disonnance.
             #
-            buttonSave = messageBox.button(QMessageBox.Yes)
+            buttonSave = messageBox.button(QMessageBox.StandardButtons.Yes)
             buttonSave.setText("Save")
-            buttonQuit = messageBox.button(QMessageBox.No)
+            buttonQuit = messageBox.button(QMessageBox.StandardButtons.No)
             buttonQuit.setText("Close")
-            messageBox.setDefaultButton(QMessageBox.Yes)
-            buttonReply = messageBox.exec_()
+            messageBox.setDefaultButton(QMessageBox.StandardButtons.Yes)
+            buttonReply = messageBox.exec()
 
-            if buttonReply == QMessageBox.Yes:
+            if buttonReply == QMessageBox.StandardButtons.Yes:
                 print("QMessageBox.Save")
                 event.accept()
             else:
@@ -132,7 +133,7 @@ class TabContainer(QTabWidget):
             "Selected tab {}".format(self.tabText(self.currentIndex())))
 
     def tabClose(self):
-        parent.statusBar().showMessage(
+        self.parent.statusBar().showMessage(
             "Tab close request on tab {0}".format(self.currentIndex() + 1))
         if self.count() > 1:
             self.removeTab(self.currentIndex())

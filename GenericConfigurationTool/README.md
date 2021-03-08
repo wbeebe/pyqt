@@ -1,6 +1,6 @@
 # PyQt, or Python3 with Qt bindings
 
-A collection of PyQt projects using Python3 and Qt5
+A collection of PyQt projects using Python3 and Qt6
 
 ## Generic Configuration Tool
 
@@ -52,7 +52,7 @@ then pick and choose ad hoc.
 
 ## License
 
-    Copyright (c) 2019 William H. Beebe, Jr.
+    Copyright (c) 2021 William H. Beebe, Jr.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

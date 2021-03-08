@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ import sys
 
 from datetime import datetime
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QMainWindow,
     QHBoxLayout,
@@ -28,10 +28,10 @@ class App(QMainWindow):
         app = QApplication(sys.argv)
         super().__init__()
 
-        self.setWindowTitle('PyQt5 simple button example')
+        self.setWindowTitle('PyQt6 simple button example')
         self.setGeometry(100, 100, 360, 140)
 
-        button = QPushButton('PyQt5 Push Button', self)
+        button = QPushButton('PyQt6 Push Button', self)
         button.setToolTip('Click button to change window status message.')
         #
         # Not too sure about setting the fixed size of the button.
@@ -45,15 +45,14 @@ class App(QMainWindow):
         layout = QHBoxLayout(widget)
         layout.addWidget(button)
         self.setCentralWidget(widget)
-
         self.statusBar().showMessage('Operational')
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     def on_click(self):
         # timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
         self.statusBar().showMessage(
-            'PyQt5 button clicked at {0}'.format(
+            'PyQt6 button clicked at {0}'.format(
                 datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
 
 if __name__ == '__main__':

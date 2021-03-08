@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-#
-#  Copyright (c) 2019 William H. Beebe, Jr.
-#
-#  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#  http://www.apache.org/licenses/LICENSE-2.0
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
-#
-import sys, os
+
+"""
+A beginning primative text editor with line numbers
+
+  Copyright (c) 2021 William H. Beebe, Jr.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+"""
+import sys
+import os
 
 from math import log10
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QMainWindow,
@@ -25,21 +29,19 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QColorDialog,
     QFileDialog,
-    QHBoxLayout,
-    QAction)
+    QHBoxLayout)
 
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
+    QAction,
     QIcon,
     QFont,
-    QPixmap,
     QPalette,
     QColor,
     QPainter)
 
-from PyQt5.QtCore import QSettings
-#
-# A beginning primative QTextEdit with line numbers
-#
+"""
+A beginning primative QTextEdit with line numbers
+"""
 class LineNumberedTextEdit(QFrame):
     #
     # Inner class to LineNumberTextEdit
@@ -57,17 +59,16 @@ class LineNumberedTextEdit(QFrame):
             #
             self.highest_line = 0
 
-        def setTextEdit(self, edit):
+        def set_text_edit(self, edit):
             self.edit = edit
 
         def update(self, *args):
 
-            # Updates the number bar to display the current set of numbers.
-            # Also, adjusts the width of the number bar if necessary.
+            # Updates the number bar width to display the current line numbers.
             #
-            # The + 5 is used to compensate for the current line being bold.
+            # The + 15 adds a bit of whitespace to the right of the line number.
             #
-            width = int(log10(self.edit.document().blockCount()) + 1) * self.fontMetrics().width(str("0")) + 5
+            width = int(log10(self.edit.document().blockCount()) + 1) * self.fontMetrics().averageCharWidth() + 5
             if self.width() != width:
                 self.setFixedWidth(width)
             QWidget.update(self, *args)
@@ -81,7 +82,7 @@ class LineNumberedTextEdit(QFrame):
             painter = QPainter(self)
 
             line_count = 0
-            
+
             # Iterate over all text blocks in the document.
             #
             block = self.edit.document().begin()
@@ -110,7 +111,7 @@ class LineNumberedTextEdit(QFrame):
                 # Draw the line number right justified at the y position of the
                 # line. 3 is a magic padding number. drawText(x, y, text).
                 #
-                painter.drawText(self.width() - font_metrics.width(str(line_count)) - 3,
+                painter.drawText(self.width() - len(str(line_count)) * font_metrics.averageCharWidth() - 5,
                     round(position.y()) - contents_y + font_metrics.ascent(), str(line_count))
 
                 # Remove the bold style if it was set previously.
@@ -133,15 +134,15 @@ class LineNumberedTextEdit(QFrame):
     def __init__(self, *args):
         QFrame.__init__(self, *args)
 
-        self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
+        self.setFrameStyle(QFrame.Shape.StyledPanel | QFrame.Shadow.Sunken)
 
         self.edit = QTextEdit()
-        self.edit.setFrameStyle(QFrame.NoFrame)
+        self.edit.setFrameStyle(QFrame.Shape.NoFrame)
         self.edit.setAcceptRichText(False)
-        self.edit.setLineWrapMode(QTextEdit.NoWrap)
+        self.edit.setLineWrapMode(QTextEdit.LineWrapMode.NoWrap)
 
         self.number_bar = self.NumberBar()
-        self.number_bar.setTextEdit(self.edit)
+        self.number_bar.set_text_edit(self.edit)
 
         hbox = QHBoxLayout(self)
         hbox.setSpacing(0)
@@ -171,12 +172,12 @@ class App(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        #self.scriptDir = os.path.dirname(os.path.realpath(__file__))
-        #print(self.scriptDir)
+        self.scriptDir = os.path.dirname(os.path.realpath(__file__))
+        print(self.scriptDir)
 
-        self.setWindowTitle('PyQt5 Basic Editor')
+        self.setWindowTitle('PyQt6 Basic Editor Skeleton')
         self.setGeometry(100, 100, 800, 640)
-        self.makeMenu()
+        self.make_menu()
         self.addMainApp()
         self.show()
         self.statusBar().showMessage('Initialized.')
@@ -185,112 +186,113 @@ class App(QMainWindow):
         self.lineNumberedTextEdit = LineNumberedTextEdit()
         self.textEdit = self.lineNumberedTextEdit.getTextEdit()
         font = QFont()
-        font.setStyleHint(QFont().Monospace)
+        font.setStyleHint(QFont().StyleHint.Monospace)
         font.setFamily('monospace')
         self.textEdit.setFont(font)
         self.setCentralWidget(self.lineNumberedTextEdit)
 
-    def makeMenu(self):
-        self.makeFileMenu(self.menuBar())
-        self.makeEditMenu(self.menuBar())
-        self.makeSearchMenu(self.menuBar())
-        self.makeToolsMenu(self.menuBar())
-        self.makeHelpMenu(self.menuBar())
+    def make_menu(self):
+        self.make_file_menu(self.menuBar())
+        self.make_edit_menu(self.menuBar())
+        self.make_search_menu(self.menuBar())
+        self.make_tools_menu(self.menuBar())
+        self.make_help_menu(self.menuBar())
 
-    def makeFileMenu(self, mainMenu):
-        fileMenu = mainMenu.addMenu('&File')
+    def make_file_menu(self, main_menu):
+        file_menu = main_menu.addMenu('&File')
 
-        newAction = QAction(QIcon(), 'New', self)
-        newAction.setStatusTip('New clear edit area')
-        newAction.triggered.connect(self.newFile)
-        fileMenu.addAction(newAction)
+        new_action = QAction(QIcon(), 'New', self)
+        new_action.setStatusTip('New clear edit area')
+        new_action.triggered.connect(self.newFile)
+        file_menu.addAction(new_action)
 
-        openAction = QAction(QIcon(), 'Open', self)
-        openAction.setStatusTip('Open file')
-        openAction.triggered.connect(self.openFile)
-        fileMenu.addAction(openAction)
+        open_action = QAction(QIcon(), 'Open', self)
+        open_action.setStatusTip('Open file')
+        open_action.triggered.connect(self.openFile)
+        file_menu.addAction(open_action)
 
-        saveAction = QAction(QIcon(), 'Save', self)
-        fileMenu.addAction(saveAction)
+        save_action = QAction(QIcon(), 'Save', self)
+        file_menu.addAction(save_action)
 
-        saveAsAction = QAction(QIcon(), 'Save as', self)
-        fileMenu.addAction(saveAsAction)
-        
-        fileMenu.addSeparator()
+        save_as_action = QAction(QIcon(), 'Save as', self)
+        file_menu.addAction(save_as_action)
 
-        exitAction = QAction(QIcon("application-exit.png"), 'Exit', self)
-        exitAction.setShortcut('Ctrl+Q')
-        exitAction.setStatusTip('Exit application')
-        exitAction.triggered.connect(self.close)
-        fileMenu.addAction(exitAction)
-        
+        file_menu.addSeparator()
+
+        exit_action = QAction(QIcon("application-exit.png"), 'Exit', self)
+        exit_action.setShortcut('Ctrl+Q')
+        exit_action.setStatusTip('Exit application')
+        exit_action.triggered.connect(self.close)
+        file_menu.addAction(exit_action)
+
     def newFile(self):
         self.textEdit.clear()
-        self.setWindowTitle('PyQt5 Basic Editor')
+        self.setWindowTitle('PyQt6 Basic Editor')
 
     def openFile(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()",
-            "", "Python Files (*.py);;All Files (*)", options=options)
-        if fileName:
-            self.setWindowTitle(fileName.split("/")[-1])
-            with open(fileName) as inputFile:
-                self.fileData = inputFile.read()
+        options  = QFileDialog.Options.DontUseNativeDialog
+        file_name, _ = QFileDialog.getOpenFileName(self,
+            "QFileDialog.getOpenFileName()",
+            "",
+            "Python Files (*.py);;All Files (*)",
+            options=options)
+        if file_name:
+            self.setWindowTitle(file_name.split("/")[-1])
+            with open(file_name) as inputFile:
+                file_data = inputFile.read()
 
             self.textEdit.clear()
-            self.textEdit.setPlainText(self.fileData)
+            self.textEdit.setPlainText(file_data)
     #
     #
     #
 
-    def makeEditMenu(self, mainMenu):
-        editMenu = mainMenu.addMenu('&Edit')
+    def make_edit_menu(self, main_menu):
+        edit_menu = main_menu.addMenu('&Edit')
 
-    def makeSearchMenu(self, mainMenu):
-        searchMenu = mainMenu.addMenu('&Search')
+    def make_search_menu(self, main_menu):
+        search_menu = main_menu.addMenu('&Search')
 
-    def makeToolsMenu(self, mainMenu):
-        toolsMenu = mainMenu.addMenu('&Tools')
+    def make_tools_menu(self, main_menu):
+        tools_menu = main_menu.addMenu('&Tools')
 
         bwColorAction=QAction(QIcon(), 'Background Color', self)
         bwColorAction.setStatusTip('Select background color')
-        bwColorAction.triggered.connect(self.colorPicker)
-        toolsMenu.addAction(bwColorAction)
+        bwColorAction.triggered.connect(self.color_picker)
+        tools_menu.addAction(bwColorAction)
 
-    def colorPicker(self):
+    def color_picker(self):
         color = QColorDialog.getColor()
         print(color.name())
-        palette = self.textEdit.palette();
-        palette.setColor(QPalette.Base, QColor(color))
+        palette = self.textEdit.palette()
+        palette.setColor(QPalette.ColorRole.Base, QColor(color))
         self.textEdit.setPalette(palette)
 
-    def makeHelpMenu(self, mainMenu):
-        helpMenu = mainMenu.addMenu('&Help')
+    def make_help_menu(self, main_menu):
+        help_menu = main_menu.addMenu('&Help')
 
-        aboutAction=QAction(QIcon(), 'About', self)
-        aboutAction.setStatusTip('About this application')
-        aboutAction.triggered.connect(self.about)
-        helpMenu.addAction(aboutAction)
+        about_action=QAction(QIcon(), 'About', self)
+        about_action.setStatusTip('About this application')
+        about_action.triggered.connect(self.about)
+        help_menu.addAction(about_action)
 
-        aboutQtAction=QAction(QIcon(), 'About Qt', self)
-        aboutQtAction.setStatusTip('About Qt and Qt Licensing')
-        aboutQtAction.triggered.connect(self.aboutQt)
-        helpMenu.addAction(aboutQtAction)
+        about_qt_action=QAction(QIcon(), 'About Qt', self)
+        about_qt_action.setStatusTip('About Qt and Qt Licensing')
+        about_qt_action.triggered.connect(self.aboutQt)
+        help_menu.addAction(about_qt_action)
 
     def about(self):
-        QMessageBox.information(self, 'About', 'Basic Editor 0.2')
+        QMessageBox.information(self, 'About', 'Basic Editor 0.3')
 
     def aboutQt(self):
         QMessageBox.aboutQt(self, 'About PyQt')
-    
-def saveSettings():
+
+def save_settings():
     print("Exiting")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.aboutToQuit.connect(saveSettings)
+    app.aboutToQuit.connect(save_settings)
     ex = App()
     print('PID',os.getpid())
-    sys.exit(app.exec_())
-
+    sys.exit(app.exec())

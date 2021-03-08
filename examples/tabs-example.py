@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,26 +14,27 @@
 #
 import sys
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QMainWindow,
     QApplication,
     QPushButton,
     QWidget,
-    QAction,
     QTabWidget,
     QVBoxLayout)
 
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import (
+    QIcon,
+    QAction)
 
 class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-        self.setWindowTitle('PyQt5 Tab Example')
+        self.setWindowTitle('PyQt6 Tab Example')
         self.setGeometry(100, 100, 640, 300)
         self.setCentralWidget(MyTabWidget(self))
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
 class MyTabWidget(QTabWidget):
     def __init__(self, parent):
@@ -68,12 +69,11 @@ class MyTabWidget(QTabWidget):
         #
         self.tab1.setLayout(QVBoxLayout(self))
         self.tab2.setLayout(QVBoxLayout(self))
-        self.pushButton1 = QPushButton("PyQt5 Button 1")
+        self.pushButton1 = QPushButton("PyQt6 Button 1")
         self.tab1.layout().addWidget(self.pushButton1)
-        self.pushButton2 = QPushButton("PyQt5 Button 2")
+        self.pushButton2 = QPushButton("PyQt6 Button 2")
         self.tab2.layout().addWidget(self.pushButton2)
 
-    #@pyqtSlot()
     def tabSelected(self):
         print("Selected tab {0}".format(self.currentIndex()+1))
 

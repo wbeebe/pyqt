@@ -14,19 +14,19 @@
 #
 import sys, os
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout)
 
-from PyQt5.QtGui import QColor
+from PyQt6.QtGui import QColor
 
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('PyQt5 Table Example')
+        self.setWindowTitle('PyQt6 Table Example')
         self.setGeometry(100, 100, 800, 600)
         #
         # Create a table, create a box layout, add the table to box layout and
@@ -121,5 +121,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
     print('PID',os.getpid())
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 

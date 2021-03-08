@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  Copyright (c) 2019 William H. Beebe, Jr.
+#  Copyright (c) 2021 William H. Beebe, Jr.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 #
 import sys
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QMainWindow,
     QWidget,
@@ -26,7 +26,7 @@ class App(QMainWindow):
     def __init__(self):
         app = QApplication(sys.argv)
         super().__init__()
-        self.setWindowTitle('PyQt5 Message Box')
+        self.setWindowTitle('PyQt6 Message Box')
         self.setGeometry(100, 100, 320, 200)
 
         #
@@ -46,7 +46,7 @@ class App(QMainWindow):
         self.setCentralWidget(widget)
 
         self.show()
-        sys.exit(app.exec_())
+        sys.exit(app.exec())
 
     #
     # This is our hook to pop up our simple dialog.
@@ -57,10 +57,10 @@ class App(QMainWindow):
     def on_click(self):
         buttonReply = QMessageBox.question(
             self,
-            'PyQt5',
-            'Do you like PyQt5?',
-            QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-        if buttonReply == QMessageBox.Yes:
+            'PyQt6',
+            'Do you like PyQt6?',
+            QMessageBox.StandardButtons.Yes | QMessageBox.StandardButtons.No, QMessageBox.StandardButtons.Yes)
+        if buttonReply == QMessageBox.StandardButtons.Yes:
             self.statusBar().showMessage('You clicked Yes. That''s good.')
         else:
             self.statusBar().showMessage('You clicked No. Why are you here?')
